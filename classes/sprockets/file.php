@@ -54,7 +54,12 @@ class Sprockets_File
 	 */
 	public function save_file($file_path, $source)
 	{
-		$path = trim($file_path);
+                $path = trim($file_path);
+                $dir = dirname($path);
+                if (!file_exists($dir)) {
+                        mkdir($dir, 0777, true);
+                }
+
 		$successful = (file_put_contents($path, $source) !== false);
 
 		if ( !$successful ) {
